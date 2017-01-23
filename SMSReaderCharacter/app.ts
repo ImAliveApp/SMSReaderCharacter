@@ -19,42 +19,41 @@ class AliveClass implements IAliveAgent {
         if (this.voices == null || this.voices.length == 0)
             this.voices = this.textToSpeechManager.getVoices();
 
-        if (this.changeInFirstTen < 10 && this.voices != null)
-        {
-            let phoneLanguage = this.configurationManager.getSystemLanguage();
+        if (this.changeInFirstTen < 10 && this.voices != null) {
+            let phoneLanguage = this.configurationManager.getSystemISO3Language();
             for (let i = 0; i < this.voices.length; i++) {
-                if (this.voices[i].getName().indexOf(phoneLanguage) != -1)
-                {
+                if (this.voices[i].getISO3Language() == phoneLanguage) {
                     this.currentVoiceIndex = i;
                     break;
                 }
             }
 
             let name = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
-            this.menuManager.setProperty("Text", "LangTextBox", name);
+            this.menuManager.setProperty("LangTextBox", "Text", name);
             this.textToSpeechManager.setVoice(this.currentVoiceIndex);
             this.changeInFirstTen++;
         }
     }
 
     getVoiceTextPresentation(v: IVoice): string {
-        let gender = v.getName().indexOf("female") ? "female" : "male";
-        return v.getLanguage() + " " + gender;
+        let gender = v.getName().indexOf("female") != -1 ? "female" : "male";
+        return v.getISO3Language() + " " + gender + " " + this.currentVoiceIndex.toString() + "/" + (this.voices.length - 1).toString();
     }
 
     onBackgroundTick(time: number) {
-        
+
     }
 
     onStart(handler: IManagersHandler, disabledPermissions: string[]): void {
         this.textToSpeechManager = handler.getTextToSpeechManager();
         this.configurationManager = handler.getConfigurationManager();
         this.menuManager = handler.getMenuManager();
-        handler.getActionManager().showMessage(this.configurationManager.getSystemLanguage());
     }
 
     onActionReceived(categoryName: string, jsonedData: string): void {
-
+        if (categoryName == AgentConstants.SMS_RECEIVED) {
+            this.textToSpeechManager.say(jsonedData);
+        }
     }
 
     onMove(oldX: number, oldY: number, newX: number, newY: number): void {
@@ -145,7 +144,7 @@ class AliveClass implements IAliveAgent {
     }
 
     onPlacesReceived(places: IAlivePlaceLikelihood[]): void {
-        
+
     }
 
     onHeadphoneStateReceived(state: number) {

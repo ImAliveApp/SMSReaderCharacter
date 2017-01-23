@@ -8,22 +8,22 @@ var AliveClass = (function () {
         if (this.voices == null || this.voices.length == 0)
             this.voices = this.textToSpeechManager.getVoices();
         if (this.changeInFirstTen < 10 && this.voices != null) {
-            var phoneLanguage = this.configurationManager.getSystemLanguage();
+            var phoneLanguage = this.configurationManager.getSystemISO3Language();
             for (var i = 0; i < this.voices.length; i++) {
-                if (this.voices[i].getName().indexOf(phoneLanguage) != -1) {
+                if (this.voices[i].getISO3Language() == phoneLanguage) {
                     this.currentVoiceIndex = i;
                     break;
                 }
             }
             var name_1 = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
-            this.menuManager.setProperty("Text", "LangTextBox", name_1);
+            this.menuManager.setProperty("LangTextBox", "Text", name_1);
             this.textToSpeechManager.setVoice(this.currentVoiceIndex);
             this.changeInFirstTen++;
         }
     };
     AliveClass.prototype.getVoiceTextPresentation = function (v) {
-        var gender = v.getName().indexOf("female") ? "female" : "male";
-        return v.getLanguage() + " " + gender;
+        var gender = v.getName().indexOf("female") != -1 ? "female" : "male";
+        return v.getISO3Language() + " " + gender + " " + this.currentVoiceIndex.toString() + "/" + (this.voices.length - 1).toString();
     };
     AliveClass.prototype.onBackgroundTick = function (time) {
     };
@@ -31,9 +31,11 @@ var AliveClass = (function () {
         this.textToSpeechManager = handler.getTextToSpeechManager();
         this.configurationManager = handler.getConfigurationManager();
         this.menuManager = handler.getMenuManager();
-        handler.getActionManager().showMessage(this.configurationManager.getSystemLanguage());
     };
     AliveClass.prototype.onActionReceived = function (categoryName, jsonedData) {
+        if (categoryName == AgentConstants.SMS_RECEIVED) {
+            this.textToSpeechManager.say(jsonedData);
+        }
     };
     AliveClass.prototype.onMove = function (oldX, oldY, newX, newY) {
     };

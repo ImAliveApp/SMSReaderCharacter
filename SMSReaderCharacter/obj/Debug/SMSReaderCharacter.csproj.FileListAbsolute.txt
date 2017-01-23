@@ -3,4 +3,3 @@ C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\bin\SM
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\bin\SMSReaderCharacter.pdb
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\obj\Debug\SMSReaderCharacter.dll
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\obj\Debug\SMSReaderCharacter.pdb
-C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\obj\Debug\SMSReaderCharacter.csprojResolveAssemblyReference.cache
