@@ -1,0 +1,6 @@
+C:\Users\Hay Zohar\Documents\GitHub\CharacterTemplate\CharacterTemplate\bin\CharacterTemplate.dll.config
+C:\Users\Hay Zohar\Documents\GitHub\CharacterTemplate\CharacterTemplate\bin\CharacterTemplate.dll
+C:\Users\Hay Zohar\Documents\GitHub\CharacterTemplate\CharacterTemplate\bin\CharacterTemplate.pdb
+C:\Users\Hay Zohar\Documents\GitHub\CharacterTemplate\CharacterTemplate\obj\Debug\CharacterTemplate.csprojResolveAssemblyReference.cache
+C:\Users\Hay Zohar\Documents\GitHub\CharacterTemplate\CharacterTemplate\obj\Debug\CharacterTemplate.dll
+C:\Users\Hay Zohar\Documents\GitHub\CharacterTemplate\CharacterTemplate\obj\Debug\CharacterTemplate.pdb
