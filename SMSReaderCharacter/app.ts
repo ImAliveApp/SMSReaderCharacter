@@ -2,6 +2,7 @@
 
 class AliveClass implements IAliveAgent {
     private resourceManagerHelper: ResourceManagerHelper;
+    private configurationManager: IConfigurationManager;
     private textToSpeechManager: ITextToSpeechManager;
     private menuManager: IMenuManager;
     private currentVoiceIndex: number;
@@ -18,12 +19,27 @@ class AliveClass implements IAliveAgent {
         if (this.voices == null || this.voices.length == 0)
             this.voices = this.textToSpeechManager.getVoices();
 
-        if (this.changeInFirstTen < 10)
+        if (this.changeInFirstTen < 10 && this.voices != null)
         {
-            this.menuManager.setProperty("Text", "LangTextBox", this.voices[this.currentVoiceIndex].getName());
+            let phoneLanguage = this.configurationManager.getSystemLanguage();
+            for (let i = 0; i < this.voices.length; i++) {
+                if (this.voices[i].getName().indexOf(phoneLanguage) != -1)
+                {
+                    this.currentVoiceIndex = i;
+                    break;
+                }
+            }
+
+            let name = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
+            this.menuManager.setProperty("Text", "LangTextBox", name);
             this.textToSpeechManager.setVoice(this.currentVoiceIndex);
             this.changeInFirstTen++;
         }
+    }
+
+    getVoiceTextPresentation(v: IVoice): string {
+        let gender = v.getName().indexOf("female") ? "female" : "male";
+        return v.getLanguage() + " " + gender;
     }
 
     onBackgroundTick(time: number) {
@@ -32,8 +48,9 @@ class AliveClass implements IAliveAgent {
 
     onStart(handler: IManagersHandler, disabledPermissions: string[]): void {
         this.textToSpeechManager = handler.getTextToSpeechManager();
+        this.configurationManager = handler.getConfigurationManager();
         this.menuManager = handler.getMenuManager();
-        this.voices = this.textToSpeechManager.getVoices();
+        handler.getActionManager().showMessage(this.configurationManager.getSystemLanguage());
     }
 
     onActionReceived(categoryName: string, jsonedData: string): void {
@@ -72,7 +89,8 @@ class AliveClass implements IAliveAgent {
                 break;
         }
 
-        this.menuManager.setProperty("LangTextBox", "Text", this.voices[this.currentVoiceIndex].getName());
+        let name = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
+        this.menuManager.setProperty("LangTextBox", "Text", name);
         this.textToSpeechManager.setVoice(this.currentVoiceIndex);
     }
 

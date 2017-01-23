@@ -7,18 +7,31 @@ var AliveClass = (function () {
     AliveClass.prototype.onTick = function (time) {
         if (this.voices == null || this.voices.length == 0)
             this.voices = this.textToSpeechManager.getVoices();
-        if (this.changeInFirstTen < 10) {
-            this.menuManager.setProperty("Text", "LangTextBox", this.voices[this.currentVoiceIndex].getName());
+        if (this.changeInFirstTen < 10 && this.voices != null) {
+            var phoneLanguage = this.configurationManager.getSystemLanguage();
+            for (var i = 0; i < this.voices.length; i++) {
+                if (this.voices[i].getName().indexOf(phoneLanguage) != -1) {
+                    this.currentVoiceIndex = i;
+                    break;
+                }
+            }
+            var name_1 = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
+            this.menuManager.setProperty("Text", "LangTextBox", name_1);
             this.textToSpeechManager.setVoice(this.currentVoiceIndex);
             this.changeInFirstTen++;
         }
+    };
+    AliveClass.prototype.getVoiceTextPresentation = function (v) {
+        var gender = v.getName().indexOf("female") ? "female" : "male";
+        return v.getLanguage() + " " + gender;
     };
     AliveClass.prototype.onBackgroundTick = function (time) {
     };
     AliveClass.prototype.onStart = function (handler, disabledPermissions) {
         this.textToSpeechManager = handler.getTextToSpeechManager();
+        this.configurationManager = handler.getConfigurationManager();
         this.menuManager = handler.getMenuManager();
-        this.voices = this.textToSpeechManager.getVoices();
+        handler.getActionManager().showMessage(this.configurationManager.getSystemLanguage());
     };
     AliveClass.prototype.onActionReceived = function (categoryName, jsonedData) {
     };
@@ -45,7 +58,8 @@ var AliveClass = (function () {
                     this.currentVoiceIndex++;
                 break;
         }
-        this.menuManager.setProperty("LangTextBox", "Text", this.voices[this.currentVoiceIndex].getName());
+        var name = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
+        this.menuManager.setProperty("LangTextBox", "Text", name);
         this.textToSpeechManager.setVoice(this.currentVoiceIndex);
     };
     AliveClass.prototype.onConfigureMenuItems = function (menuBuilder) {
