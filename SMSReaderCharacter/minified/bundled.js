@@ -33,6 +33,9 @@ var AliveClass = (function () {
         this.menuManager = handler.getMenuManager();
     };
     AliveClass.prototype.onActionReceived = function (categoryName, jsonedData) {
+        if (categoryName == AgentConstants.SMS_RECEIVED) {
+            this.textToSpeechManager.say(jsonedData);
+        }
     };
     AliveClass.prototype.onMove = function (oldX, oldY, newX, newY) {
     };
