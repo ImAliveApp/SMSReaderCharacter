@@ -26,7 +26,7 @@ Once a SMS is received, the "onActionReceived" method will be called with the ac
 the jsonedData object will be:
 ```
 {
-  From: "The contact who sent this message (unknown if the contact is not exists)",
+  From: "The contact who sent this message (unknown if the contact does not exists)",
   Message: "The SMS content."
 }
 ```
