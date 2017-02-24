@@ -32,4 +32,5 @@ the jsonedData object will be:
 ```
 The textToSpeechManager will than activate the default Text-To-Speech engine of the phone and the content will have read by the engine.
 
-**Note** that we check if the `SMS` permission is not disabled in the `onStart` method, as if this permission is disabled we should not run.
+**Note**:
+We check if the `SMS` permission is not disabled in the `onStart` method, as if this permission is disabled we should not run.
