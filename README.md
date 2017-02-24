@@ -7,7 +7,7 @@ This character will read the content of an incoming sms using the Text-To-Speech
 ### How to use:
 In order to use this template, do the following steps:
 
-1. Download and build it this project ([guide](https://github.com/hay12396/ImAliveGuide/wiki/How-to:-Build-and-upload-a-character-code) guide)
+1. Download and build it this project ([guide](https://github.com/hay12396/ImAliveGuide/wiki/How-to:-Build-and-upload-a-character-code))
 
 2. Register your character to the SMS_RECEIVED event ([guide](http://HowToRegisterToActionsGuide.com)).
 
