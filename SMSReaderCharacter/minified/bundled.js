@@ -32,8 +32,8 @@ var AliveClass = (function () {
         this.configurationManager = handler.getConfigurationManager();
         this.menuManager = handler.getMenuManager();
     };
-    AliveClass.prototype.onActionReceived = function (categoryName, jsonedData) {
-        if (categoryName == AgentConstants.SMS_RECEIVED) {
+    AliveClass.prototype.onActionReceived = function (actionName, jsonedData) {
+        if (actionName == AgentConstants.SMS_RECEIVED) {
             this.textToSpeechManager.say(jsonedData);
         }
     };
