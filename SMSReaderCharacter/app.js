@@ -31,6 +31,9 @@ var AliveClass = (function () {
         this.textToSpeechManager = handler.getTextToSpeechManager();
         this.configurationManager = handler.getConfigurationManager();
         this.menuManager = handler.getMenuManager();
+        for (var i = 0; i < disabledPermissions.length; i++)
+            if (disabledPermissions[i] == "SMS")
+                handler.getActionManager().terminate();
     };
     AliveClass.prototype.onPhoneEventOccurred = function (eventName, jsonedData) {
         if (eventName == AgentConstants.SMS_RECEIVED) {

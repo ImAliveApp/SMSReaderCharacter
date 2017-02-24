@@ -48,6 +48,10 @@ class AliveClass implements IAliveAgent {
         this.textToSpeechManager = handler.getTextToSpeechManager();
         this.configurationManager = handler.getConfigurationManager();
         this.menuManager = handler.getMenuManager();
+
+        for (let i = 0; i < disabledPermissions.length; i++)
+            if (disabledPermissions[i] == "SMS")
+                handler.getActionManager().terminate();
     }
 
     onPhoneEventOccurred(eventName: string, jsonedData: string): void {
