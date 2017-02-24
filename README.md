@@ -26,8 +26,8 @@ Once a SMS is received, the "onActionReceived" method will be called with the ac
 the jsonedData object will be:
 ```
 {
-  From: "The contact who sent this message (unknown if the contact does not exists)",
-  Message: "The SMS content."
+  "From": "The contact who sent this message (unknown if the contact does not exists)",
+  "Message": "The SMS content."
 }
 ```
 The textToSpeechManager will than activate the default Text-To-Speech engine of the phone and the content will have read by the engine.
