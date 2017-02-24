@@ -11,7 +11,7 @@ In order to use this template, do the following steps:
 
 2. Register your character to the SMS_RECEIVED event ([guide](http://HowToRegisterToActionsGuide.com)).
 
-3. Publish your character and see the results! ([guide](https://github.com/hay12396/ImAliveGuide/wiki/How-to:-Publish-your-character) guide)
+3. Publish your character and see the results! ([guide](https://github.com/hay12396/ImAliveGuide/wiki/How-to:-Publish-your-character))
 
 ### The code:
 Most of the work is done in the "onActionReceived" method:
