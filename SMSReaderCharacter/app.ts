@@ -50,8 +50,8 @@ class AliveClass implements IAliveAgent {
         this.menuManager = handler.getMenuManager();
     }
 
-    onActionReceived(actionName: string, jsonedData: string): void {
-        if (actionName == AgentConstants.SMS_RECEIVED) {
+    onPhoneEventOccurred(eventName: string, jsonedData: string): void {
+        if (eventName == AgentConstants.SMS_RECEIVED) {
             this.textToSpeechManager.say(jsonedData);
         }
     }

@@ -32,8 +32,8 @@ var AliveClass = (function () {
         this.configurationManager = handler.getConfigurationManager();
         this.menuManager = handler.getMenuManager();
     };
-    AliveClass.prototype.onActionReceived = function (actionName, jsonedData) {
-        if (actionName == AgentConstants.SMS_RECEIVED) {
+    AliveClass.prototype.onPhoneEventOccurred = function (eventName, jsonedData) {
+        if (eventName == AgentConstants.SMS_RECEIVED) {
             this.textToSpeechManager.say(jsonedData);
         }
     };
@@ -261,6 +261,7 @@ var AgentConstants = (function () {
 //# sourceMappingURL=IAliveUserActivity.js.map
 //# sourceMappingURL=IAliveWeather.js.map
 //# sourceMappingURL=ICurrentTime.js.map
+//# sourceMappingURL=IMenuBuilder.js.map
 //# sourceMappingURL=ITime.js.map
 //# sourceMappingURL=IVoice.js.map
 var ResourceManagerHelper = (function () {
