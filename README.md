@@ -15,7 +15,7 @@ In order to use this template, do the following steps:
 
 ### The code:
 Most of the work is done in the "onActionReceived" method:
-```
+```javascript
     onActionReceived(actionName: string, jsonedData: string): void {
         if (actionName == AgentConstants.SMS_RECEIVED) {
             this.textToSpeechManager.say(jsonedData);
@@ -24,7 +24,7 @@ Most of the work is done in the "onActionReceived" method:
 ```
 Once a SMS is received, the "onActionReceived" method will be called with the actionName being "SMS_RECEIVED", 
 the jsonedData object will be:
-```
+```javascript
 {
   "From": "The contact who sent this message (unknown if the contact does not exists)",
   "Message": "The SMS content."
