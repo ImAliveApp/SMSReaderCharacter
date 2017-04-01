@@ -14,8 +14,10 @@ var AliveClass = (function () {
         this.configurationManager = handler.getConfigurationManager();
         this.menuManager = handler.getMenuManager();
         for (var i = 0; i < disabledPermissions.length; i++)
-            if (disabledPermissions[i] == "SMS")
+            if (disabledPermissions[i] == "SMS") {
+                handler.getActionManager().showMessage("SMS permission is disabled, exiting character.");
                 handler.getActionManager().terminate();
+            }
     };
     /**
      * This method gets called every 250 milliseconds by the system, any logic updates to the state of your character should occur here.

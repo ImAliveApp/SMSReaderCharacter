@@ -26,7 +26,10 @@ class AliveClass implements IAliveAgent {
 
         for (let i = 0; i < disabledPermissions.length; i++)
             if (disabledPermissions[i] == "SMS")
+            {
+                handler.getActionManager().showMessage("SMS permission is disabled, exiting character.");
                 handler.getActionManager().terminate();
+            }
     }
 
     /**
