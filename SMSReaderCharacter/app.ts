@@ -1,7 +1,6 @@
 ﻿/// <reference path="Scripts/collections.ts" />
 
 class AliveClass implements IAliveAgent {
-    private resourceManagerHelper: ResourceManagerHelper;
     private configurationManager: IConfigurationManager;
     private textToSpeechManager: ITextToSpeechManager;
     private menuManager: IMenuManager;
