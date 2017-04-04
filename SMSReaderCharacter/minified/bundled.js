@@ -4,6 +4,26 @@ var AliveClass = (function () {
         this.currentVoiceIndex = 0;
         this.changeInFirstTen = 0;
     }
+    /**
+     * This method gets called once when the character is being activated by the system.
+     * @param handler An object that allows the code to get reference to the managers.
+     * @param disabledPermissions A list of permissions that the user disabled.
+     */
+    AliveClass.prototype.onStart = function (handler, disabledPermissions) {
+        this.textToSpeechManager = handler.getTextToSpeechManager();
+        this.configurationManager = handler.getConfigurationManager();
+        this.menuManager = handler.getMenuManager();
+        for (var i = 0; i < disabledPermissions.length; i++)
+            if (disabledPermissions[i] == "SMS") {
+                handler.getActionManager().showMessage("SMS permission is disabled, exiting character.");
+                handler.getActionManager().terminate();
+            }
+    };
+    /**
+     * This method gets called every 250 milliseconds by the system, any logic updates to the state of your character should occur here.
+     * Note: onTick only gets called when the screen is ON.
+     * @param time The current time (in milliseconds) on the device.
+     */
     AliveClass.prototype.onTick = function (time) {
         if (this.voices == null || this.voices.length == 0)
             this.voices = this.textToSpeechManager.getVoices();
@@ -21,32 +41,59 @@ var AliveClass = (function () {
             this.changeInFirstTen++;
         }
     };
+    /**
+     * This method gets called by the system every 1 hour (may be in a different rate depending on the device).
+     * Note: this method only gets called when the screen is OFF.
+     * @param time The current time (in milliseconds) on the device.
+     */
+    AliveClass.prototype.onBackgroundTick = function (time) {
+    };
     AliveClass.prototype.getVoiceTextPresentation = function (v) {
         var gender = v.getName().indexOf("female") != -1 ? "female" : "male";
         return v.getISO3Language() + " " + gender + " " + this.currentVoiceIndex.toString() + "/" + (this.voices.length - 1).toString();
     };
-    AliveClass.prototype.onBackgroundTick = function (time) {
-    };
-    AliveClass.prototype.onStart = function (handler, disabledPermissions) {
-        this.textToSpeechManager = handler.getTextToSpeechManager();
-        this.configurationManager = handler.getConfigurationManager();
-        this.menuManager = handler.getMenuManager();
-    };
+    /**
+     * This method gets called whenever a phone event (that you registered to) occur on the phone.
+     * @param eventName The name of the event that occurred.
+     * @param jsonedData The data of the event that occurred.
+     * For example, SMS_RECEIVED event will hold data about who sent the SMS, and the SMS content.
+     */
     AliveClass.prototype.onPhoneEventOccurred = function (eventName, jsonedData) {
         if (eventName == AgentConstants.SMS_RECEIVED) {
             this.textToSpeechManager.say(jsonedData);
         }
     };
+    /**
+     * This method gets called when the user is holding and moving the image of your character (on screen).
+     * @param oldX The X coordinate in the last tick (Top left).
+     * @param oldY The Y coordinate in the last tick (Top left).
+     * @param newX The X coordinate in the current tick (Top left).
+     * @param newY The Y coordinate in the current tick (Top left).
+     */
     AliveClass.prototype.onMove = function (oldX, oldY, newX, newY) {
     };
+    /**
+     * This method gets called when the user raised his finger off the character image (on screen).
+     * @param currentX The X coordinate of the character image on screen (Top left).
+     * @param currentY The Y coordinate of the character image on the screen (Top left).
+     */
     AliveClass.prototype.onRelease = function (currentX, currentY) {
     };
+    /**
+     * This method gets called whenever the user is holding the character image (on screen).
+     * @param currentX The current X coordinate of the character image (Top left).
+     * @param currentY The current Y coordinate of the character image (Top left).
+     */
     AliveClass.prototype.onPick = function (currentX, currentY) {
     };
-    AliveClass.prototype.onMenuItemSelected = function (itemName) {
+    /**
+     * This method gets called whenever the user has pressed a view in the character menu.
+     * @param viewName The 'Name' property of the view that was pressed.
+     */
+    AliveClass.prototype.onMenuItemSelected = function (viewName) {
         if (this.voices == null || this.voices.length == 0)
             this.voices = this.textToSpeechManager.getVoices();
-        switch (itemName) {
+        switch (viewName) {
             case "PrevButton":
                 if (this.currentVoiceIndex > 0)
                     this.currentVoiceIndex--;
@@ -64,6 +111,10 @@ var AliveClass = (function () {
         this.menuManager.setProperty("LangTextBox", "Text", name);
         this.textToSpeechManager.setVoice(this.currentVoiceIndex);
     };
+    /**
+     * This method gets called once just before the onStart method and is where the character menu views are defined.
+     * @param menuBuilder An object that fills the character menu.
+     */
     AliveClass.prototype.onConfigureMenuItems = function (menuBuilder) {
         var PrevButton = new ButtonMenuItem();
         PrevButton.Height = 1;
@@ -96,17 +147,46 @@ var AliveClass = (function () {
         menuBuilder.createButton(NextButton);
         menuBuilder.createTextBox(TextBox);
     };
+    /**
+     * This method gets called when the system done processing the speech recognition input.
+     * @param results A stringed version of what the user said.
+     */
     AliveClass.prototype.onSpeechRecognitionResults = function (results) { };
+    /**
+     * This method is called when the system received a reply from a previously HTTP request made by the character.
+     * @param response The reply body in a JSON form.
+     */
     AliveClass.prototype.onResponseReceived = function (response) {
     };
+    /**
+     * This method gets called when the system done collecting information about the device location.
+     * @param location The location information collected by the system.
+     */
     AliveClass.prototype.onLocationReceived = function (location) {
     };
+    /**
+     * This method gets called when the system done collecting information about the user activity.
+     * @param state Information about the user activity.
+     * Possible states: IN_VEHICLE, ON_BICYCLE, ON_FOOT, STILL, TILTING, WALKING, RUNNING, UNKNOWN.
+     */
     AliveClass.prototype.onUserActivityStateReceived = function (state) {
     };
+    /**
+     * This method gets called when the system done collecting information about nearby places around the device.
+     * @param places A list of places that are near the device.
+     */
     AliveClass.prototype.onPlacesReceived = function (places) {
     };
+    /**
+     * This method gets called when the system done collecting information about the headphone state.
+     * @param state 1 - the headphones are PLUGGED, 2 - the headphones are UNPLUGGED.
+     */
     AliveClass.prototype.onHeadphoneStateReceived = function (state) {
     };
+    /**
+     * This method gets called when the system done collecting information about the weather in the location of the device.
+     * @param weather Information about the weather.
+     */
     AliveClass.prototype.onWeatherReceived = function (weather) {
     };
     return AliveClass;
@@ -262,6 +342,7 @@ var AgentConstants = (function () {
 //# sourceMappingURL=IAliveWeather.js.map
 //# sourceMappingURL=ICurrentTime.js.map
 //# sourceMappingURL=IMenuBuilder.js.map
+//# sourceMappingURL=IRectangle.js.map
 //# sourceMappingURL=ITime.js.map
 //# sourceMappingURL=IVoice.js.map
 var ResourceManagerHelper = (function () {
@@ -345,14 +426,11 @@ var ResourceManagerHelper = (function () {
 ;
 //# sourceMappingURL=IDatabaseManager.js.map
 //# sourceMappingURL=IManagersHandler.js.map
-//# sourceMappingURL=IMenuBuilder.js.map
 ;
 //# sourceMappingURL=IMenuManager.js.map
 ;
 //# sourceMappingURL=IResourceManager.js.map
 //# sourceMappingURL=IRestManager.js.map
-;
-//# sourceMappingURL=ISpeechManager.js.map
 ;
 //# sourceMappingURL=ISpeechToTextManager.js.map
 ;
@@ -1050,8 +1128,8 @@ var collections;
             };
         };
         return LinkedList;
-    }());
-    collections.LinkedList = LinkedList; // End of linked list 
+    }()); // End of linked list 
+    collections.LinkedList = LinkedList;
     var Dictionary = (function () {
         /**
          * Creates an empty dictionary.
@@ -1223,8 +1301,8 @@ var collections;
             return toret + "\n}";
         };
         return Dictionary;
-    }());
-    collections.Dictionary = Dictionary; // End of dictionary
+    }()); // End of dictionary
+    collections.Dictionary = Dictionary;
     /**
      * This class is used by the LinkedDictionary Internally
      * Has to be a class, not an interface, because it needs to have
@@ -1244,11 +1322,12 @@ var collections;
     var LinkedDictionary = (function (_super) {
         __extends(LinkedDictionary, _super);
         function LinkedDictionary(toStrFunction) {
-            _super.call(this, toStrFunction);
-            this.head = new LinkedDictionaryPair(null, null);
-            this.tail = new LinkedDictionaryPair(null, null);
-            this.head.next = this.tail;
-            this.tail.prev = this.head;
+            var _this = _super.call(this, toStrFunction) || this;
+            _this.head = new LinkedDictionaryPair(null, null);
+            _this.tail = new LinkedDictionaryPair(null, null);
+            _this.head.next = _this.tail;
+            _this.tail.prev = _this.head;
+            return _this;
         }
         /**
          * Inserts the new node to the 'tail' of the list, updating the
@@ -1413,8 +1492,8 @@ var collections;
             }
         };
         return LinkedDictionary;
-    }(Dictionary));
-    collections.LinkedDictionary = LinkedDictionary; // End of LinkedDictionary
+    }(Dictionary)); // End of LinkedDictionary
+    collections.LinkedDictionary = LinkedDictionary;
     // /**
     //  * Returns true if this dictionary is equal to the given dictionary.
     //  * Two dictionaries are equal if they contain the same mappings.
@@ -1593,8 +1672,8 @@ var collections;
             return this.dict.isEmpty();
         };
         return MultiDictionary;
-    }());
-    collections.MultiDictionary = MultiDictionary; // end of multi dictionary 
+    }()); // end of multi dictionary 
+    collections.MultiDictionary = MultiDictionary;
     var Heap = (function () {
         /**
          * Creates an empty Heap.
@@ -1914,8 +1993,8 @@ var collections;
             this.list.forEach(callback);
         };
         return Stack;
-    }());
-    collections.Stack = Stack; // End of stack 
+    }()); // End of stack 
+    collections.Stack = Stack;
     var Queue = (function () {
         /**
          * Creates an empty queue.
@@ -2018,8 +2097,8 @@ var collections;
             this.list.forEach(callback);
         };
         return Queue;
-    }());
-    collections.Queue = Queue; // End of queue
+    }()); // End of queue
+    collections.Queue = Queue;
     var PriorityQueue = (function () {
         /**
          * Creates an empty priority queue.
@@ -2125,8 +2204,8 @@ var collections;
             this.heap.forEach(callback);
         };
         return PriorityQueue;
-    }());
-    collections.PriorityQueue = PriorityQueue; // end of priority queue
+    }()); // end of priority queue
+    collections.PriorityQueue = PriorityQueue;
     var Set = (function () {
         /**
          * Creates an empty set.
@@ -2288,8 +2367,8 @@ var collections;
             return collections.arrays.toString(this.toArray());
         };
         return Set;
-    }());
-    collections.Set = Set; // end of Set
+    }()); // end of Set
+    collections.Set = Set;
     var Bag = (function () {
         /**
          * Creates an empty bag.
@@ -2468,8 +2547,8 @@ var collections;
             this.dictionary.clear();
         };
         return Bag;
-    }());
-    collections.Bag = Bag; // End of bag 
+    }()); // End of bag 
+    collections.Bag = Bag;
     var BSTree = (function () {
         /**
          * Creates an empty binary search tree.
@@ -2863,10 +2942,13 @@ var collections;
             };
         };
         return BSTree;
-    }());
-    collections.BSTree = BSTree; // end of BSTree
+    }()); // end of BSTree
+    collections.BSTree = BSTree;
 })(collections || (collections = {})); // End of module 
 //# sourceMappingURL=collections.js.map
+//# sourceMappingURL=IAliveLocation.js.map
+//# sourceMappingURL=IAliveUserActivity.js.map
+//# sourceMappingURL=IAliveWeather.js.map
 //# sourceMappingURL=ICalendarEvent.js.map
 var BaseMenuItem = (function () {
     function BaseMenuItem() {
@@ -2882,10 +2964,10 @@ var PictureMenuItem = (function () {
     function PictureMenuItem() {
         this.ViewType = ViewType.Picture;
     }
-    PictureMenuItem.UseProfilePicture = "Use Profile Picture";
-    PictureMenuItem.UseCoverPicture = "Use Cover Picture";
     return PictureMenuItem;
 }());
+PictureMenuItem.UseProfilePicture = "Use Profile Picture";
+PictureMenuItem.UseCoverPicture = "Use Cover Picture";
 var ButtonMenuItem = (function () {
     function ButtonMenuItem() {
         this.ViewType = ViewType.Button;
