@@ -9,7 +9,7 @@ In order to use this template, do the following steps:
 
 1. Download and build it this project ([guide](https://github.com/hay12396/ImAliveGuide/wiki/How-to:-Build-and-upload-a-character-code))
 
-2. Register your character to the SMS_RECEIVED event ([guide](http://HowToRegisterToActionsGuide.com)).
+2. Register your character to the SMS_RECEIVED event ([guide](https://www.youtube.com/watch?v=SByJnkZn4gI&feature=youtu.be)).
 
 3. Publish your character and see the results! ([guide](https://github.com/hay12396/ImAliveGuide/wiki/How-to:-Publish-your-character))
 
