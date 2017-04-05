@@ -14,7 +14,7 @@ In order to use this template, do the following steps:
 3. Publish your character and see the results! ([guide](https://github.com/hay12396/ImAliveGuide/wiki/How-to:-Publish-your-character))
 
 ### The code:
-Most of the work is done in the "onActionReceived" method:
+Most of the work is done in the "onPhoneEventOccurred" method:
 ```javascript
     onPhoneEventOccurred(eventName: string, jsonedData: string): void {
         if (eventName == AgentConstants.SMS_RECEIVED) {
