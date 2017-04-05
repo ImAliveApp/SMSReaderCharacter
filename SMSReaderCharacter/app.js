@@ -49,7 +49,9 @@ var AliveClass = (function () {
     AliveClass.prototype.onBackgroundTick = function (time) {
     };
     AliveClass.prototype.getVoiceTextPresentation = function (v) {
-        var gender = v.getName().indexOf("female") != -1 ? "female" : "male";
+        var gender = v.getName().indexOf("female") != -1 ? "female" : "";
+        if (gender == "")
+            gender = v.getName().indexOf("male") != -1 ? "male" : "unknown gender";
         return v.getISO3Language() + " " + gender + " " + this.currentVoiceIndex.toString() + "/" + (this.voices.length - 1).toString();
     };
     /**
