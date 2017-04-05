@@ -2,7 +2,7 @@
 var AliveClass = (function () {
     function AliveClass() {
         this.currentVoiceIndex = 0;
-        this.changeInFirstTen = 0;
+        this.voiceIndexSet = false;
     }
     /**
      * This method gets called once when the character is being activated by the system.
@@ -27,7 +27,8 @@ var AliveClass = (function () {
     AliveClass.prototype.onTick = function (time) {
         if (this.voices == null || this.voices.length == 0)
             this.voices = this.textToSpeechManager.getVoices();
-        if (this.changeInFirstTen < 10 && this.voices != null) {
+        var index = this.databaseManager.getObject("Index");
+        if (index == null && this.voices != null) {
             var phoneLanguage = this.configurationManager.getSystemISO3Language();
             for (var i = 0; i < this.voices.length; i++) {
                 if (this.voices[i].getISO3Language() == phoneLanguage) {
@@ -35,10 +36,12 @@ var AliveClass = (function () {
                     break;
                 }
             }
-            var name_1 = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
-            this.menuManager.setProperty("LangTextBox", "Text", name_1);
-            this.textToSpeechManager.setVoice(this.currentVoiceIndex);
-            this.changeInFirstTen++;
+            this.databaseManager.saveObject("Index", this.currentVoiceIndex.toString());
+            this.changeVoice(true);
+        }
+        else {
+            this.currentVoiceIndex = parseInt(index);
+            this.changeVoice(false);
         }
     };
     /**
@@ -48,6 +51,24 @@ var AliveClass = (function () {
      */
     AliveClass.prototype.onBackgroundTick = function (time) {
     };
+    /**
+     * This method sets the Text-To-Speech voice to a different voice (using the currentVoiceIndex).
+     * @param force If true, we force a change.
+     */
+    AliveClass.prototype.changeVoice = function (force) {
+        if (this.voiceIndexSet && !force)
+            return;
+        this.voiceIndexSet = true;
+        this.actionManager.showMessage("changing..");
+        var name = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
+        this.menuManager.setProperty("LangTextBox", "Text", name);
+        this.textToSpeechManager.setVoice(this.currentVoiceIndex);
+        this.databaseManager.saveObject("Index", this.currentVoiceIndex.toString());
+    };
+    /**
+     * This method changes the text in the menu to the correct voice text.
+     * @param v The current voice that we use.
+     */
     AliveClass.prototype.getVoiceTextPresentation = function (v) {
         var gender = v.getName().indexOf("female") != -1 ? "female" : "";
         if (gender == "")
@@ -109,9 +130,7 @@ var AliveClass = (function () {
                     this.currentVoiceIndex++;
                 break;
         }
-        var name = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
-        this.menuManager.setProperty("LangTextBox", "Text", name);
-        this.textToSpeechManager.setVoice(this.currentVoiceIndex);
+        this.changeVoice(true);
     };
     /**
      * This method gets called once just before the onStart method and is where the character menu views are defined.
