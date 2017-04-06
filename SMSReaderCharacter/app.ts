@@ -55,8 +55,6 @@ class AliveClass implements IAliveAgent {
                 }
             }
 
-            this.databaseManager.saveObject("Index", this.currentVoiceIndex.toString());
-
             this.changeVoice(true);
         }
         else {
@@ -87,6 +85,7 @@ class AliveClass implements IAliveAgent {
         this.menuManager.setProperty("LangTextBox", "Text", name);
         this.textToSpeechManager.setVoice(this.currentVoiceIndex);
         this.databaseManager.saveObject("Index", this.currentVoiceIndex.toString());
+        this.databaseManager.saveObject("VoiceName", name);
     }
 
     /**
