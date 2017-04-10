@@ -15,7 +15,7 @@ var AliveClass = (function () {
         this.menuManager = handler.getMenuManager();
         for (var i = 0; i < disabledPermissions.length; i++)
             if (disabledPermissions[i] == "SMS") {
-                handler.getActionManager().showMessage("SMS permission is disabled, exiting character.");
+                handler.getActionManager().showSystemMessage("SMS permission is disabled, exiting character.");
                 handler.getActionManager().terminate();
             }
     };
@@ -58,7 +58,7 @@ var AliveClass = (function () {
         if (this.voiceIndexSet && !force)
             return;
         this.voiceIndexSet = true;
-        this.actionManager.showMessage("changing..");
+        this.actionManager.showSystemMessage("changing..");
         var name = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
         this.menuManager.setProperty("LangTextBox", "Text", name);
         this.textToSpeechManager.setVoice(this.currentVoiceIndex);
@@ -2972,10 +2972,10 @@ var collections;
     collections.BSTree = BSTree;
 })(collections || (collections = {})); // End of module 
 //# sourceMappingURL=collections.js.map
+//# sourceMappingURL=ICalendarEvent.js.map
 //# sourceMappingURL=IAliveLocation.js.map
 //# sourceMappingURL=IAliveUserActivity.js.map
 //# sourceMappingURL=IAliveWeather.js.map
-//# sourceMappingURL=ICalendarEvent.js.map
 var BaseMenuItem = (function () {
     function BaseMenuItem() {
     }

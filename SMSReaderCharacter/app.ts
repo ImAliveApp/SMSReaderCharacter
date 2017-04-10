@@ -30,7 +30,7 @@ class AliveClass implements IAliveAgent {
         for (let i = 0; i < disabledPermissions.length; i++)
             if (disabledPermissions[i] == "SMS")
             {
-                handler.getActionManager().showMessage("SMS permission is disabled, exiting character.");
+                handler.getActionManager().showSystemMessage("SMS permission is disabled, exiting character.");
                 handler.getActionManager().terminate();
             }
     }
@@ -80,7 +80,7 @@ class AliveClass implements IAliveAgent {
         if (this.voiceIndexSet && !force) return;
 
         this.voiceIndexSet = true;
-        this.actionManager.showMessage("changing..");
+        this.actionManager.showSystemMessage("changing..");
         let name = this.getVoiceTextPresentation(this.voices[this.currentVoiceIndex]);
         this.menuManager.setProperty("LangTextBox", "Text", name);
         this.textToSpeechManager.setVoice(this.currentVoiceIndex);
