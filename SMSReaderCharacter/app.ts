@@ -46,20 +46,9 @@ class AliveClass implements IAliveAgent {
 
         let index = this.databaseManager.getObject("Index");
 
-        if (index == null && this.voices != null) {
-            let phoneLanguage = this.configurationManager.getSystemISO3Language();
-            for (let i = 0; i < this.voices.length; i++) {
-                if (this.voices[i].getISO3Language() == phoneLanguage) {
-                    this.currentVoiceIndex = i;
-                    break;
-                }
-            }
-
-            this.changeVoice(true);
-        }
-        else {
+        if (index != null) {
             this.currentVoiceIndex = parseInt(index);
-            this.changeVoice(false);
+            this.changeVoice(true);
         }
     }
 
@@ -192,13 +181,17 @@ class AliveClass implements IAliveAgent {
         NextButton.TextColor = "#0591de";
         NextButton.Name = "NextButton";
 
+        let text = this.databaseManager.getObject("VoiceName");
+        if (text == null)
+            text = "Current Language: English";
+
         let TextBox = new TextBoxMenuItem();
         TextBox.BackgroundColor = "#000000";
         TextBox.Height = 3;
         TextBox.InitialX = 0;
         TextBox.InitialY = 0;
         TextBox.Name = "LangTextBox";
-        TextBox.Text = "Current Language: English";
+        TextBox.Text = text;
         TextBox.TextColor = "#0591de";
         TextBox.Width = menuBuilder.getMaxColumns();
 

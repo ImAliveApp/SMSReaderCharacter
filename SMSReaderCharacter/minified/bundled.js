@@ -28,19 +28,9 @@ var AliveClass = (function () {
         if (this.voices == null || this.voices.length == 0)
             this.voices = this.textToSpeechManager.getVoices();
         var index = this.databaseManager.getObject("Index");
-        if (index == null && this.voices != null) {
-            var phoneLanguage = this.configurationManager.getSystemISO3Language();
-            for (var i = 0; i < this.voices.length; i++) {
-                if (this.voices[i].getISO3Language() == phoneLanguage) {
-                    this.currentVoiceIndex = i;
-                    break;
-                }
-            }
-            this.changeVoice(true);
-        }
-        else {
+        if (index != null) {
             this.currentVoiceIndex = parseInt(index);
-            this.changeVoice(false);
+            this.changeVoice(true);
         }
     };
     /**
@@ -155,13 +145,16 @@ var AliveClass = (function () {
         NextButton.Text = "Next lang";
         NextButton.TextColor = "#0591de";
         NextButton.Name = "NextButton";
+        var text = this.databaseManager.getObject("VoiceName");
+        if (text == null)
+            text = "Current Language: English";
         var TextBox = new TextBoxMenuItem();
         TextBox.BackgroundColor = "#000000";
         TextBox.Height = 3;
         TextBox.InitialX = 0;
         TextBox.InitialY = 0;
         TextBox.Name = "LangTextBox";
-        TextBox.Text = "Current Language: English";
+        TextBox.Text = text;
         TextBox.TextColor = "#0591de";
         TextBox.Width = menuBuilder.getMaxColumns();
         menuBuilder.createButton(PrevButton);
