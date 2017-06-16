@@ -119,7 +119,7 @@ var AliveClass = (function () {
     };
     AliveClass.prototype.onWeatherReceived = function (weather) {
     };
-    AliveClass.prototype.onApplicationEventOccurred = function (eventName, jsonedData) {
+    AliveClass.prototype.onUserEventOccurred = function (eventName, jsonedData) {
     };
     return AliveClass;
 }());
