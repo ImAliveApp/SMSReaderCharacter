@@ -119,6 +119,8 @@ var AliveClass = (function () {
     };
     AliveClass.prototype.onWeatherReceived = function (weather) {
     };
+    AliveClass.prototype.onUserEventOccurred = function (eventName, jsonedData) {
+    };
     return AliveClass;
 }());
 //# sourceMappingURL=app.js.map
