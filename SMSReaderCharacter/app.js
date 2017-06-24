@@ -46,8 +46,6 @@ var AliveClass = (function () {
             this.textToSpeechManager.say(jsonedData);
         }
     };
-    AliveClass.prototype.onMove = function (oldX, oldY, newX, newY) {
-    };
     AliveClass.prototype.onRelease = function (currentX, currentY) {
     };
     AliveClass.prototype.onPick = function (currentX, currentY) {
