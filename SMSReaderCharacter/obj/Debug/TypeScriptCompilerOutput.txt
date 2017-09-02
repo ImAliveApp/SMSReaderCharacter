@@ -66,6 +66,8 @@ C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveE
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\IButtonMenuItem.js.map
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\ICheckBoxMenuItem.js
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\ICheckBoxMenuItem.js.map
+C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\IHyperLinkMenuItem.js
+C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\IHyperLinkMenuItem.js.map
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\IMenuHeader.js
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\IMenuHeader.js.map
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\IPaintMenuItem.js
@@ -74,6 +76,8 @@ C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveE
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\IPictureMenuItem.js.map
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\IProgressBarMenuItem.js
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\IProgressBarMenuItem.js.map
+C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\ISwitchMenuItem.js
+C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\ISwitchMenuItem.js.map
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\ITextBoxMenuItem.js
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuInterfaces\ITextBoxMenuItem.js.map
 C:\Users\Hay Zohar\Documents\GitHub\SMSReaderCharacter\SMSReaderCharacter\AliveEnvironmentObjects\MenuClasses\BaseMenuItem.js
